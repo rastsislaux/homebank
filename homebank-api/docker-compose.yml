@@ -1,0 +1,22 @@
+services:
+
+  postgres:
+    image: postgres:14.13
+    environment:
+      POSTGRES_DB: homebank
+      POSTGRES_USER: homebank
+      POSTGRES_PASSWORD: homebank
+    ports:
+      - "6002:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.4
+    restart: always
+    ports:
+      - "6001:6379"
+    command: "redis-server --save 20 1 --loglevel warning"
+
+volumes:
+  postgres-data:
