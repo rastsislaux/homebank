@@ -1,0 +1,58 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - homebank-api/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/homebank:latest homebank-api
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/homebank:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Authorize
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: Deploy to existing Cloud Run service
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          SERVICE_NAME: homebank
+          REGION: us-central1
+        run: |
+          gcloud run deploy ${SERVICE_NAME} \
+            --image=docker.io/${DOCKERHUB_USERNAME}/homebank:latest \
+            --set-env-vars=HOMEBANK_FIRESTORE_PROJECT_ID=${PROJECT_ID} \
+            --set-secrets=HOMEBANK_PRIORBANK_LOGIN=HOMEBANK_PRIORBANK_LOGIN:latest,HOMEBANK_PRIORBANK_PASSWORD=HOMEBANK_PRIORBANK_PASSWORD:latest \
+            --region=$REGION \
+            --project=${PROJECT_ID}

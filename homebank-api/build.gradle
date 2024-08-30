@@ -46,3 +46,7 @@ kotlin {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+springBoot {
+	mainClass = 'rastsislaux.homebank.api.HomebankApiApplicationKt'
+}
