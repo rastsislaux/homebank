@@ -52,6 +52,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           REGION: us-central1
           IMAGE_TAG: ${{ github.sha }}
+          SERVICE_NAME: priorbank-transactions-job
         run: |
           gcloud beta run jobs update ${SERVICE_NAME} \
             --image=docker.io/${DOCKERHUB_USERNAME}/${SERVICE_NAME}:${IMAGE_TAG} \
