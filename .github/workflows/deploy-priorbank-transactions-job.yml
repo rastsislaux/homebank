@@ -59,4 +59,3 @@ jobs:
             --set-env-vars=HOMEBANK_FIRESTORE_PROJECT_ID=${PROJECT_ID} \
             --set-secrets=HOMEBANK_PRIORBANK_LOGIN=HOMEBANK_PRIORBANK_LOGIN:latest,HOMEBANK_PRIORBANK_PASSWORD=HOMEBANK_PRIORBANK_PASSWORD:latest \
             --region=$REGION
-            --project=$PROJECT_ID
