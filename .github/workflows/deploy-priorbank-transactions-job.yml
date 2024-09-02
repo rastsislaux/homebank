@@ -1,4 +1,4 @@
-name: Build and Deploy to Cloud Run
+name: Build and Deploy Priorbank Transactions Job to Cloud Run
 
 on:
   workflow_dispatch:
@@ -53,9 +53,9 @@ jobs:
           REGION: us-central1
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          gcloud run deploy ${SERVICE_NAME} \
+          gcloud beta run jobs update ${SERVICE_NAME} \
             --image=docker.io/${DOCKERHUB_USERNAME}/${SERVICE_NAME}:${IMAGE_TAG} \
             --set-env-vars=HOMEBANK_FIRESTORE_PROJECT_ID=${PROJECT_ID} \
             --set-secrets=HOMEBANK_PRIORBANK_LOGIN=HOMEBANK_PRIORBANK_LOGIN:latest,HOMEBANK_PRIORBANK_PASSWORD=HOMEBANK_PRIORBANK_PASSWORD:latest \
-            --region=$REGION \
-            --project=${PROJECT_ID}
+            --region=$REGION
+            --project=$PROJECT_ID
