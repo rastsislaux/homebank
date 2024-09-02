@@ -32,5 +32,5 @@ kotlin {
 }
 
 springBoot {
-    mainClass = 'rastsislaux.homebank.priorbank.transactions.job'
+    mainClass = 'rastsislaux.homebank.priorbank.transactions.job.MainKt'
 }
