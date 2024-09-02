@@ -12,6 +12,8 @@ WORKDIR /usr/src/java-code
 RUN gradle bootJar -i --stacktrace
 
 FROM eclipse-temurin:17-alpine
+RUN apk update && \
+    apk add chromium alsa-lib ffmpeg
 EXPOSE 8080
 USER root
 WORKDIR /usr/src/java-app
