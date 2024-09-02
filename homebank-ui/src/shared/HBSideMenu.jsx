@@ -2,6 +2,7 @@ import React from "react";
 import {Layout, Menu} from 'antd';
 import {DollarOutlined, WalletOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
+import useAuth from "../security/HBAuth";
 
 const { Sider } = Layout;
 
@@ -19,7 +20,12 @@ const sideMenuData = [
 ];
 
 const HBSideMenu = () => {
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  if (!isAuthenticated()) {
+    return null;
+  }
 
   return <Sider width={200} className="site-layout-background">
     <Menu

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Typography } from 'antd';
+import CurrentUserCard from "./CurrentUserCard";
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -12,6 +13,7 @@ const HBPageHeader = ({title, actions = [], ...props}) => {
         </Title>
         <div>
           {actions}
+          <CurrentUserCard />
         </div>
       </Header>
   );
