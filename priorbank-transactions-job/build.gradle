@@ -26,6 +26,11 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(17)
+}
+
+springBoot {
+    mainClass = 'rastsislaux.homebank.priorbank.transactions.job'
 }
