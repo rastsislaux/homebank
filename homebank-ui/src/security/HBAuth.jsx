@@ -24,6 +24,7 @@ const useAuth = () => {
 
   return {
     setToken,
+    getToken,
     isAuthenticated,
     getUserinfo,
     logout

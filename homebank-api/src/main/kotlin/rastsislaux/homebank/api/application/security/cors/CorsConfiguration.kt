@@ -1,4 +1,4 @@
-package rastsislaux.homebank.api.application.cors
+package rastsislaux.homebank.api.application.security.cors
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

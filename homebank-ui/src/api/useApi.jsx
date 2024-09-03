@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const apiUrl = "https://homebank-q222wqfrza-uc.a.run.app";
 
-const useApi = (basePath) => {
+const useApi = (axios, basePath) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

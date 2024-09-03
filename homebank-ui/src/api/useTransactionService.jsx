@@ -1,7 +1,7 @@
-import useApi from "./useApi";
+import useAuthenticatedApi from "./useAuthenticatedApi";
 
 const useTransactionService = () => {
-  const { get } = useApi("/api/v1/transactions");
+  const { get } = useAuthenticatedApi("/api/v1/transactions");
 
   const getTransactions = ({
     page = 0,
