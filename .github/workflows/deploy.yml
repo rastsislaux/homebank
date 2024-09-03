@@ -56,10 +56,6 @@ jobs:
           gcloud run deploy ${SERVICE_NAME} \
             --image=docker.io/${DOCKERHUB_USERNAME}/homebank:${IMAGE_TAG} \
             --set-env-vars=HOMEBANK_FIRESTORE_PROJECT_ID=${PROJECT_ID} \
-            --set-secrets=\
-              HOMEBANK_PRIORBANK_LOGIN=HOMEBANK_PRIORBANK_LOGIN:latest,\
-              HOMEBANK_PRIORBANK_PASSWORD=HOMEBANK_PRIORBANK_PASSWORD:latest,\
-              HOMEBANK_CLIENT_ID=HOMEBANK_CLIENT_ID:latest,\
-              HOMEBANK_OPENID_CONFIG=HOMEBANK_OPENID_CONFIG:latest \
+            --set-secrets=HOMEBANK_PRIORBANK_LOGIN=HOMEBANK_PRIORBANK_LOGIN:latest,HOMEBANK_PRIORBANK_PASSWORD=HOMEBANK_PRIORBANK_PASSWORD:latest,HOMEBANK_CLIENT_ID=HOMEBANK_CLIENT_ID:latest,HOMEBANK_OPENID_CONFIG=HOMEBANK_OPENID_CONFIG:latest \
             --region=$REGION \
             --project=${PROJECT_ID}
