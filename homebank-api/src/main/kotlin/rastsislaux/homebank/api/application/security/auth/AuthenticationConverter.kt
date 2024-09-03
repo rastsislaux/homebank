@@ -12,6 +12,7 @@ class AuthenticationConverter : Converter<Jwt, HBAuthentication> {
                 jwt.getClaimAsString("email"),
                 jwt.getClaimAsString("name"),
             )
+
         return HBAuthentication(jwt, principal, emptyList())
     }
 }

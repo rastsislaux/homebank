@@ -33,6 +33,11 @@ class JwtDecoderConfiguration(
         }
 
     fun validator(token: Jwt): OAuth2TokenValidatorResult {
+        // TODO: Replace with proper check
+        if (token.getClaimAsString("email") != "rostislav.lipsky@gmail.com") {
+            return OAuth2TokenValidatorResult.failure(NOT_IN_WHITELIST)
+        }
+
         val audience = token.audience
 
         val isClientIdCorrect = audience.contains(securityProperties.sso.clientId)
@@ -46,5 +51,7 @@ class JwtDecoderConfiguration(
     companion object {
         val INVALID_CLIENT_ID_ERROR: OAuth2Error =
             OAuth2Error("invalid_client_id", "Invalid client ID.", null)
+        val NOT_IN_WHITELIST: OAuth2Error =
+            OAuth2Error("not_in_whitelist", "Not in whitelist", null)
     }
 }
